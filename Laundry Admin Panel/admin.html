@@ -26,7 +26,37 @@
 	<link rel='stylesheet' id='wc-blocks-style-css'
 		href='wp-content/plugins/woocommerce/packages/woocommerce-blocks/build/wc-blocks-style8c3f.css?ver=8.0.0'
 		type='text/css' media='all' />
+
+
+		<!-- <script>
+			function varified(){
+				if (loginn = true ) 
+				{
+					window.location.href = "Laundry Admin Panel/admin.html";
+				} else {
+					window.location.replace("Laundry Admin Panel/page-login.html");
+				}
+			}
+
+		</script> -->
+
+<script>
+function allow(){
+	alert('test');
+var allow =localStorage.getItem("allow");
+console.log(allow);
+if(allow < 1)
+{
+	console.log('null');
+	window.location.replace("http://127.0.0.1:4000/Laundry%20Admin%20Panel/page-login.html");
+}
+}
+allow();
+</script>
+
 </head>
+
+
 <body onload="getReq()">
 
     <div id="main-wrapper">
@@ -129,6 +159,18 @@
 					</div>
 				</div>
 				
+
+
+
+
+				
+
+
+
+
+
+
+
 				<script>
 				function deleteClick (obj) {
 					// var rowID = $(obj).attr('id');
@@ -176,7 +218,11 @@
 
 
 								<script>
+										
 
+								</script>
+								<script>
+									//console.log(massage);
 									async function getReq() {
 										var sno = 1;
 									fetch(`http://localhost:8081/getdata`)
@@ -184,17 +230,24 @@
 											return res.json();
 										})
 									 
+
+											
+										
+
+
 										.then((data) => {
 											console.log(data);
+											var i = 1;
 											data.forEach((user) =>  {
 												if (user) {
+													var massage = document.getElementById ("total_amount${sno}");
 													document.getElementById("example5").innerHTML += `
-													
+											
 													
 													
 													<tbody>
 														
-														<td id="id">${sno++}</td>
+														<td id="id">${sno}</td>
 														<td>${user.name}</td>
 														<td>${user.address}</td>
 														<td>${user.whatsnumber}</td>
@@ -203,7 +256,11 @@
 														<td>${user.trouser}</td>
 														<td>${user.cardigan}</td>
 														<td>${user.aditional_fee}</td>
-														<td><input type="number" class="form-control" id="total_amount" placeholder="Amount"></td>
+														
+														
+														<td><input type="number" class="form-control" id="total_amount${sno}" placeholder="Amount"></td>
+														
+														
 														
 														<td>
 															<div class="dropdown ml-auto text-right">
@@ -219,7 +276,14 @@
 	
 	
 																<div class="dropdown-menu dropdown-menu-right">
-																	<a class="dropdown-item" href="#">Accept & Sent</a>
+																	
+																	<a class="dropdown-item" onclick="massage(${sno++})" href="https://web.whatsapp.com/send?phone=92${user.whatsnumber}&text=Hi_${user.name} Your Order Is
+																	${user.native}=native-----
+																	${user.shirt}=shirt-----
+																	${user.trouser}=trouser-----
+																	${user.cardigan}=cardigan-----
+																	${user.aditional_fee}=aditional_fee-----
+																	"total_amount${sno}"=total_amount----->Accept & Sent</a>
 																	<a class="dropdown-item" onclick="deleteClick(${user.id})" href="#">Reject Order</a>
 																</div>
 	
@@ -234,8 +298,10 @@
 												else{"no data"}
 											});
 										});
+										
 									}
-	
+									
+									
 								</script>
 							</table>
 
@@ -251,7 +317,7 @@
 
         <div class="footer">
             <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">SOC SOLUTIONS</a> 2022</p>
+                <p>© Designed &amp; Developed by <a href="#" target="_blank">SOC SOLUTIONS</a> 2022</p>
             </div>
         </div>
       

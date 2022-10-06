@@ -4,6 +4,7 @@ const express = require('express');
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var cors = require('cors');
+const { query } = require('express');
 
 
 var app = express();
@@ -67,6 +68,15 @@ app.get('/getdata',async function (req,res){
     });
   })
   
+//LOGIN apI
+app.get('/login',async function (req,res){
+  res.setHeader('Content-Type', 'application/json');
+    connection.query(`SELECT * FROM admin where email_id = '${req.query.email}' and password = '${req.query.password}'`, function (err, result) {
+    if (err) throw err;
+    res.send(result);
+  });
+})  
+
 
 // var server = app.listen(8081, function() {
 //     var host = server.address().address;
@@ -110,7 +120,37 @@ var server = app.listen(8081, function() {
 ///////pls insert with id and name  form with delet method 
 
 
+///////creat login api------------
+// app.post("/login",function(req,res){
 
+//   var email_id = req.body.email_id;
+//   var password = req.body.password;
+
+//     connection.query("select * from admin where email_id = ? and password	= ?",[email_id,password],function(error,results,fields){
+//       if (results.length > 0){
+//         res.redirect("Laundry Admin Panel/admin.html");
+//       }else{
+//         res.redirect("/");
+//       }
+//     })
+// })
+
+
+// app.get("/admin",function(req,res){
+//     res.sendFile(__dirname + "/")
+// })
+
+// app.listen(4000);
+
+
+// app.get('/login',async function (req,res){
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//     connection.query(`select * from admin where email='${req.query.email}' and password='${req.query.password}'`, function (err, result) {
+//     if (err) throw err;
+//     res.send(result);
+
+//   });
+// })
 
 
 
